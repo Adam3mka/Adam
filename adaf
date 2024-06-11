@@ -31,7 +31,7 @@ local AlchemyNotify = function(Text_i,Duration_i)
 end
 --Key
 wait(0.1)
-AlchemyNotify("Thanks for using Amplify Hub!",5)
+AlchemyNotify("Thanks for using VPLI Hub!",5)
 wait(0.1)
 AlchemyNotify("discord.gg/dUdzZskBCC",5)
 wait(0.5)
@@ -40,11 +40,11 @@ local ui_link = "https://pst.innomi.net/paste/vg2pj9oxa9yp4mre3mpbcxtb/raw"
 
 local a = loadstring(game:HttpGet(ui_link))()
 
-local a = a:Window("W-Skinny Hub | Premium Acess")
+local a = a:Window("VPLI Hub | FREE Acess")
 
 local HomePage = a:Tab("Home", "rbxassetid://16062922985")
 
-HomePage:Seperator("Amplify Hub")
+HomePage:Seperator("VPLI Hub")
 
 HomePage:Label("TPS:Street Soccer")
 
@@ -73,7 +73,7 @@ end)
 HomePage:Label("Join Discord for Report Bugs")
 
 HomePage:Button("Copy Discord Link", function()
-    setclipboard("https://discord.gg/zVNRHm4RVB")
+    setclipboard("")
 end)
 
 HomePage:Toggle("Anti Kick", true, function()
