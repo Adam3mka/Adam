@@ -1,0 +1,46 @@
+local DiscordLib =
+    loadstring(game:HttpGet "https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/discord")()
+
+local win = DiscordLib:Window("LocalPlayer Tab")
+
+local pcserv = win:Server("air dribble", "")
+
+local pctextbs = pcserv:Channel("Textboxes")
+
+local pcbtns  = pcserv:Channel("teez")
+
+
+pctextbs:Textbox(
+    "air dribble helper by adamkiller",
+    "Type here!",
+    true,
+    function(arg)
+ getgenv().boxsettings = {
+    box = {
+        boxsize = Vector3.new(12,0,12),
+        markerOffset = Vector3.new(0, -1, 0),
+        boxtransparency = 1,
+    },
+}
+
+local Ball = game.Workspace.TPSSystem.TPS
+
+function makemarker(Parent, Adornee)
+    local box = Instance.new("Part", Parent)
+    box.Name = "TPS"
+    box.Size = boxsettings.box.boxsize
+    box.Anchored = true
+    box.Transparency = boxsettings.box.boxtransparency
+    return box
+end
+
+local markersize = UDim2.new(2, 0, 2, 0)
+local marker = makemarker(Ball.Parent, Ball)
+
+game:GetService("RunService").Stepped:Connect(function(deltaTime)
+    marker.CFrame = CFrame.new(Ball.Position + boxsettings.box.markerOffset)
+end)       
+    end
+)
+      end    
+})
