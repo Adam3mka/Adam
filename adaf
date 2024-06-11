@@ -33,7 +33,7 @@ end
 wait(0.1)
 AlchemyNotify("Thanks for using VPLI Hub!",5)
 wait(0.1)
-AlchemyNotify("discord.gg/dUdzZskBCC",5)
+AlchemyNotify("https://discord.com/invite/gyU7FAaems",5)
 wait(0.5)
 --------------------------------------------------------------------------------------------
 local ui_link = "https://pst.innomi.net/paste/vg2pj9oxa9yp4mre3mpbcxtb/raw"
