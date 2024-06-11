@@ -23,7 +23,7 @@ local TouchedGKBallBox
 repeat wait(1) until game:IsLoaded()
 local AlchemyNotify = function(Text_i,Duration_i)
     game.StarterGui:SetCore("SendNotification", {
-        Title = "Amplify Hub V2",
+        Title = "VPLI Hub V2",
         Text = Text_i,
         Duration = Duration_i,
         Icon = "rbxassetid://14981376704"
