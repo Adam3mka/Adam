@@ -73,7 +73,7 @@ end)
 HomePage:Label("Join Discord for Report Bugs")
 
 HomePage:Button("Copy Discord Link", function()
-    setclipboard("")
+    setclipboard("https://discord.com/invite/gyU7FAaems")
 end)
 
 HomePage:Toggle("Anti Kick", true, function()
