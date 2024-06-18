@@ -140,7 +140,7 @@ local fmovecon = false
 local infj = false
 physical:AddToggle({
 	Name="Infinite Jump",
-	Default=false,
+	Default=true,
 	Callback=function(value)
 		if value then
 			infj = true
@@ -151,7 +151,7 @@ physical:AddToggle({
 })
 physical:AddToggle({
 	Name="Fast Climb",
-	Default=false,
+	Default=true,
 	Callback=function(value)
 		if value then
 			fclimbcon = true
@@ -162,7 +162,7 @@ physical:AddToggle({
 })
 physical:AddToggle({
 	Name="Free Move",
-	Default=false,
+	Default=true,
 	Callback=function(value)
 		if value then
 			fmovecon = true
