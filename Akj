@@ -47,7 +47,7 @@ hitboxes:AddToggle({
 hitboxes:AddSlider({
 	Name="Hitbox Size",
 	Min=2,Max=15,
-	Default=10,
+	Default=12,
 	Increment=1,
 	ValueName="studs",
 	Callback=function(value)
@@ -104,7 +104,7 @@ _humanoid:AddToggle({
 _humanoid:AddSlider({
 	Name="Walkspeed Value",
 	Min=26,Max=65,
-	Default=35,
+	Default=30,
 	Increment=1,
 	Callback=function(value)
 		wsval = value
@@ -129,7 +129,7 @@ _humanoid:AddToggle({
 _humanoid:AddSlider({
 	Name="Jumppower Value",
 	Min=30,Max=90,
-	Default=35,
+	Default=34,
 	Increment=1,
 	Callback=function(value)
 		jpval = value
