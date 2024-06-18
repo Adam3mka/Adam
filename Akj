@@ -32,7 +32,7 @@ local exp_main = experi:AddSection({Name="Main"})
 local visuals = experi:AddSection({Name="Visuals [BETA]"})
 
 local hbcon = false
-local hbsize = 8
+local hbsize = 10
 hitboxes:AddToggle({
 	Name="Hitbox Extend",
 	Default=true,
@@ -47,7 +47,7 @@ hitboxes:AddToggle({
 hitboxes:AddSlider({
 	Name="Hitbox Size",
 	Min=2,Max=15,
-	Default=8,
+	Default=10,
 	Increment=1,
 	ValueName="studs",
 	Callback=function(value)
@@ -104,7 +104,7 @@ _humanoid:AddToggle({
 _humanoid:AddSlider({
 	Name="Walkspeed Value",
 	Min=26,Max=65,
-	Default=45,
+	Default=35,
 	Increment=1,
 	Callback=function(value)
 		wsval = value
@@ -129,7 +129,7 @@ _humanoid:AddToggle({
 _humanoid:AddSlider({
 	Name="Jumppower Value",
 	Min=30,Max=90,
-	Default=32,
+	Default=35,
 	Increment=1,
 	Callback=function(value)
 		jpval = value
