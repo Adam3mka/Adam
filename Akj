@@ -88,7 +88,7 @@ local wscon,jpcon = false,false
 local changeWs,changeJp
 _humanoid:AddToggle({
 	Name="Walkspeed",
-	Default=false,
+	Default=true,
 	Callback=function(value)
 		if value then
 			wscon = true
@@ -112,7 +112,7 @@ _humanoid:AddSlider({
 })
 _humanoid:AddToggle({
 	Name="Jumppower",
-	Default=false,
+	Default=true,
 	Callback=function(value)
 		if value then
 			jpcon = true
@@ -129,7 +129,7 @@ _humanoid:AddToggle({
 _humanoid:AddSlider({
 	Name="Jumppower Value",
 	Min=30,Max=90,
-	Default=34,
+	Default=32,
 	Increment=1,
 	Callback=function(value)
 		jpval = value
