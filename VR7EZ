@@ -1,0 +1,332 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "VR7Hubs | TPS STREET SOCCER", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+OrionLib:MakeNotification({
+	Name = "شكرا لاستخدامك للسكربت",
+	Content = "By VR7",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+local Tab1 = Window:MakeTab({
+	Name = "الفارم",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+Tab1:AddToggle({
+	Name = "اوتو Goal",
+	Default = false,
+	Callback = function(arg)
+		if arg then
+_G.AUTOFARM = true
+while _G.AUTOFARM do
+wait()
+local HRPRotation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Rotation
+local GoalPST = game.Workspace.TPSSystem.TPS.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = HRPRotation + GoalPST.Position
+    local A_1 = game:GetService("Workspace").TPSSystem.TPS
+local A_2 = game:GetService("Players").LocalPlayer.Character.Head
+local Event = game:GetService("Workspace").FE.Actions.Tackle
+Event:FireServer(A_1, A_2)
+
+local Events2 = game:GetService("Workspace").FE.Kick.RemoteEvent2
+Events2:FireServer()
+if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright red") then
+game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = true
+game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position + Vector3.new(0, 45, 0),game.Workspace.BlueGoal.Part.Position)
+end
+if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright blue") then
+game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = true
+game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position + Vector3.new(0, 45, 0),game.Workspace.RedGoal.Part.Position)
+end
+end
+    else
+_G.AUTOFARM = false
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Lines.Line12.CFrame
+game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = false
+end
+	end    
+})
+
+
+Tab1:AddToggle({
+	Name = "اوتو مسك الكره",
+	Default = false,
+	Callback = function(arg)
+if arg then
+for i,v in pairs(game.Workspace.GKSystem:GetChildren()) do
+    if v.Name == "Fix" then
+       v.CanTouch = false
+    end
+end
+    else
+        for i,v in pairs(game.Workspace.GKSystem:GetChildren()) do
+    if v.Name == "Fix" then
+       v.CanTouch = true
+    end
+end
+end
+	end    
+})
+
+
+
+
+
+local Section = Tab1:AddSection({
+	Name = "اخرى"
+})
+
+Tab1:AddButton({
+	Name = "دخول التيم الازرق",
+	Callback = function()
+      		local Event = game:GetService("Workspace").FE.CTeamColor.RemoteEventB
+Event:FireServer()
+  	end    
+})
+Tab1:AddButton({
+	Name = "دخول التيم الاحمر",
+	Callback = function()
+      		local Event = game:GetService("Workspace").FE.CTeamColor.RemoteEventR
+Event:FireServer()
+  	end    
+})
+Tab1:AddToggle({
+	Name = "خدعه جعل نفسك في الفريق الازرق",
+	Default = false,
+	Callback = function(arg)
+		if arg then
+_G.FB = true
+    while _G.FB do
+    wait()
+    game.Workspace.FE.PlayerTeam.RemoteEventB:FireServer()  
+    end
+    else
+    _G.FB = false
+end
+	end    
+})
+Tab1:AddToggle({
+	Name = "خدعه جعل نفسك في الفريق الاحمر",
+	Default = false,
+	Callback = function(arg)
+		if arg then
+_G.FR = true
+    while _G.FR do
+    wait()
+    game.Workspace.FE.PlayerTeam.RemoteEventR:FireServer()  
+    end
+    else
+    _G.FR = false
+end
+	end    
+})
+local TabF = Window:MakeTab({
+	Name = "اللاعب",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+TabF:AddToggle({
+	Name = "تحويل الكره الى نار زرقاء",
+	Default = false,
+	Callback = function(arg)
+		if arg then
+game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.Tick.Visible = true
+    game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.BlueFlame.Style = "RobloxRoundButton"
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.Image = "rbxassetid://5366457711"
+        game:GetService("Players").LocalPlayer.Backpack.FValue.Value = 2
+    else
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.Tick.Visible = false
+    game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.BlueFlame.Style = "RobloxRoundDefaultButton"
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.Image = "rbxassetid://1595877615"
+       game:GetService("Players").LocalPlayer.Backpack.FValue.Value = 1
+    end
+	end    
+})
+
+TabF:AddToggle({
+	Name = "اوتو دفاع / الدفاع عن المرمى",
+	Default = false,
+	Callback = function(arg)
+		if arg then
+if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright blue") then
+game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(0.6464786529541016, 13.299994468688965, 92.49656677246094)
+else
+game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(0.11751431971788406, 13.299994468688965, -91.30338287353516)
+end
+_G.AUTODEFENCE = true
+while _G.AUTODEFENCE do
+wait()
+    if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright blue") then
+        if (game.Workspace.TPSSystem.TPS.Position - game.Workspace.TPSSystem.Part2.Position).Magnitude <= 125 then
+        game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = true
+game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position + Vector3.new(0, 45, 0),game.Workspace.RedGoal.Part.Position)
+game.Players.LocalPlayer.Character.Humanoid:MoveTo(game.Workspace.TPSSystem.TPS.Position)
+for i,v in pairs(game.Workspace:GetDescendants()) do
+    if v.Name == "TPS" and v:IsA("Part") then
+    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude <= 6 then
+       local ModuleKick = require(game:GetService("Players").LocalPlayer.Backpack.Module)
+ModuleKick.Tackle()
+local A_1 = game:GetService("Workspace").TPSSystem.TPS
+local A_2 = game:GetService("Players").LocalPlayer.Character.Head
+local Event = game:GetService("Workspace").FE.Actions.Tackle
+Event:FireServer(A_1, A_2)
+end
+end
+end
+end
+end
+if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright red") then
+        if (game.Workspace.TPSSystem.TPS.Position - game.Workspace.TPSSystem.Part1.Position).Magnitude <= 125 then
+        game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = true
+game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position + Vector3.new(0, 45, 0),game.Workspace.BlueGoal.Part.Position)
+game.Players.LocalPlayer.Character.Humanoid:MoveTo(game.Workspace.TPSSystem.TPS.Position)
+for i,v in pairs(game.Workspace:GetDescendants()) do
+    if v.Name == "TPS" and v:IsA("Part") then
+    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).Magnitude <= 6 then
+       local ModuleKick = require(game:GetService("Players").LocalPlayer.Backpack.Module)
+ModuleKick.Tackle()
+local A_1 = game:GetService("Workspace").TPSSystem.TPS
+local A_2 = game:GetService("Players").LocalPlayer.Character.Head
+local Event = game:GetService("Workspace").FE.Actions.Tackle
+Event:FireServer(A_1, A_2)
+end
+end
+end
+end
+end
+end
+    else
+        _G.AUTODEFENCE = false
+        wait(1)
+        game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = false
+end
+	end    
+})
+TabF:AddToggle({
+	Name = "السماح بتخريب مسك الكوره عن الحارس",
+	Default = false,
+	Callback = function(arg)
+if arg then
+game:GetService("Workspace").GKSystem.Fix1.CanTouch = false
+        game:GetService("Workspace").GKSystem.Fix2.CanTouch = false
+    else
+        game:GetService("Workspace").GKSystem.Fix1.CanTouch = true
+        game:GetService("Workspace").GKSystem.Fix2.CanTouch = true
+end
+	end    
+})
+local TabG = Window:MakeTab({
+	Name = "التنقل",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+TabG:AddButton({
+	Name = "التنقل الى الكوره",
+	Callback = function()
+game.Players.LocalPlayer.Character:MoveTo(game.Workspace.TPSSystem.TPS.Position)
+  	end    
+})
+
+
+
+TabG:AddButton({
+	Name = "التنقل الى مرمى الفريق الازرق",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-0.337467283, 13.2999945, 113.940865, 0.999967039, 4.84168332e-08, 0.00811586808, -4.90094685e-08, 1, 7.28228073e-08, -0.00811586808, -7.32181604e-08, 0.999967039)
+  	end    
+})
+
+
+TabG:AddButton({
+	Name = "التنقل الى مرمى الفريق الاحمر",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0.229434282, 13.2999945, -111.25293, -0.999964356, 6.47347465e-09, -0.00844059512, 5.92729865e-09, 1, 6.47332428e-08, 0.00844059512, 6.46809042e-08, -0.999964356)
+  	end    
+})
+local TabK = Window:MakeTab({
+	Name = "الريتش",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Section = TabK:AddSection({
+	Name = "VR7 ON TOP"
+})
+local RunSteppedMobile
+local DistanceReachMobile = 0
+
+TabK:AddButton({
+	Name = "تفعيل الريتش",
+	Callback = function()
+	OrionLib:MakeNotification({
+	Name = "تم تفعيلك للريتش",
+	Content = "شكرا لاستخدامك للسكربت",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+      		RunSteppedMobile = game:GetService("RunService").RenderStepped:Connect(function()
+if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Workspace.TPSSystem.TPS.Position).Magnitude <= DistanceReachMobile then
+if game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1 then
+firetouchinterest(game.Players.LocalPlayer.Character["Right Leg"], game.Workspace.TPSSystem.TPS, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character["Right Leg"], game.Workspace.TPSSystem.TPS, 1)
+elseif game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 2 then
+firetouchinterest(game.Players.LocalPlayer.Character["Left Leg"], game.Workspace.TPSSystem.TPS, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character["Left Leg"], game.Workspace.TPSSystem.TPS, 1)
+
+end
+end
+end
+if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Workspace.TPSSystem.TPS.Position).Magnitude <= DistanceReach then
+if game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1 then
+firetouchinterest(game.Players.LocalPlayer.Character["RightLowerLeg"], game.Workspace.TPSSystem.TPS, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character["RightLowerLeg"], game.Workspace.TPSSystem.TPS, 1)
+elseif game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 2 then
+firetouchinterest(game.Players.LocalPlayer.Character["LeftLowerLeg"], game.Workspace.TPSSystem.TPS, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character["LeftLowerLeg"], game.Workspace.TPSSystem.TPS, 1)
+			end
+			end
+			end
+			end)
+			DistanceReachMobile = 100
+  	end    
+})
+TabK:AddButton({
+	Name = "قفل الريتش",
+	Callback = function()
+	OrionLib:MakeNotification({
+	Name = "تم قفل الريتش",
+	Content = "شكرا لاستخدامك للسكربت",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+      		RunSteppedMobile:Disconnect()
+  	end    
+})
+local TabC = Window:MakeTab({
+	Name = "الحقوق",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Section = TabC:AddSection({
+	Name = "VR7Hubs"
+})
+
+TabC:AddButton({
+	Name = "نسخ رابط سيرفر الديسكورد",
+	Callback = function()
+      		setclipboard("https://discord.gg/XafjTNQg")
+            print("link copied to clipoard")
+  	end    
+})
+
+TabC:AddButton({
+	Name = "في الديسكورد VR7 نسخ اسم ",
+	Callback = function()
+  setclipboard("v_r7")
+            print("link copied to clipoard")
+  	end    
+})
