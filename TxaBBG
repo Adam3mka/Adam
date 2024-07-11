@@ -1,1 +1,12 @@
-print("FUCK YOUR MOTHER NIGGA U AINT GETTING THE SCRIPT")
+
+local player = game.Players.LocalPlayer
+
+local function kickPlayer(player)
+    player:Kick("ALDZx")
+end
+
+if player then
+    kickPlayer(player)
+else
+    print("lol.")
+end
