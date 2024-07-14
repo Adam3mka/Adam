@@ -104,7 +104,7 @@ _humanoid:AddToggle({
 _humanoid:AddSlider({
 	Name="Walkspeed Value",
 	Min=26,Max=65,
-	Default=32,
+	Default=38,
 	Increment=1,
 	Callback=function(value)
 		wsval = value
