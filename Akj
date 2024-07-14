@@ -47,7 +47,7 @@ hitboxes:AddToggle({
 hitboxes:AddSlider({
 	Name="Hitbox Size",
 	Min=2,Max=15,
-	Default=8,
+	Default=10,
 	Increment=1,
 	ValueName="studs",
 	Callback=function(value)
