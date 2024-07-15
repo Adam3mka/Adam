@@ -143,12 +143,11 @@ physical:AddToggle({
 	Default=true,
 	Callback=function(value)
 		if value then
-			infj = true 
-                else 
-
-                         infj = false 
-              end 
-      end, 
+			infj = true
+		else
+			infj = false
+		end
+	end,
 })
 physical:AddToggle({
 	Name="Fast Climb",
