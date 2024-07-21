@@ -1,0 +1,204 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("SERVER RAIDER", "Synapse")
+
+-- Tabs
+
+local Tab1 = Window:NewTab("Main")
+local Tab1Section = Tab1:NewSection("Main Section") -- Define Tab1Section here
+
+Tab1Section:NewButton("Reset", "die die. DIE DIE.", function()
+    -- script here
+    local player = game.Players.LocalPlayer
+
+    local function dieMyCharacter()
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChild("Humanoid")
+            if humanoid then
+                humanoid.Health = 0
+            end
+        end
+    end
+
+    local triggerCondition = true
+
+    if triggerCondition then
+        dieMyCharacter()
+    end
+end)
+
+Tab1Section:NewButton("Spam Chat Gui [ NOT MINE ]", "why u click this?", function()
+    -- script here
+    -- Made By Finn/Cheez/Dark!
+
+game.StarterGui:SetCore ("SendNotification",   {
+Title = "CREDITS!";
+Text =  "Made By Finn/Cheez/Dark!";
+Duration = "5";
+
+})
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Frame_2 = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local TextBox = Instance.new("TextBox")
+local UICorner_2 = Instance.new("UICorner")
+local TextButton = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local UICorner_4 = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Frame.Position = UDim2.new(0.293939382, 0, 0.35603714, 0)
+Frame.Size = UDim2.new(0, 223, 0, 141)
+Frame.Active = true
+
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(47, 49, 59)
+Frame_2.Position = UDim2.new(0.0358744413, 0, 0.0496453904, 0)
+Frame_2.Size = UDim2.new(0, 208, 0, 126)
+
+UICorner.Parent = Frame_2
+
+TextBox.Parent = Frame_2
+TextBox.BackgroundColor3 = Color3.fromRGB(31, 31, 40)
+TextBox.Position = UDim2.new(0.0538115874, 0, 0.112630695, 0)
+TextBox.Size = UDim2.new(0, 187, 0, 47)
+TextBox.Font = Enum.Font.GothamBold
+TextBox.PlaceholderColor3 = Color3.fromRGB(178, 178, 178)
+TextBox.PlaceholderText = "Chat Goes Here!"
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(178, 178, 178)
+TextBox.TextSize = 18.000
+TextBox.TextWrapped = true
+
+UICorner_2.Parent = TextBox
+
+TextButton.Parent = Frame_2
+TextButton.BackgroundColor3 = Color3.fromRGB(31, 31, 40)
+TextButton.Position = UDim2.new(0.0538115874, 0, 0.579365075, 0)
+TextButton.Size = UDim2.new(0, 187, 0, 44)
+TextButton.Font = Enum.Font.GothamBold
+TextButton.Text = "Chat!"
+TextButton.TextColor3 = Color3.fromRGB(189, 189, 189)
+TextButton.TextSize = 20.000
+TextButton.MouseButton1Down:Connect(function()
+	local args = {
+		[1] = (TextButton.Parent.TextBox.Text),
+		[2] = "All"
+	}
+
+	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+end)
+
+UICorner_3.Parent = TextButton
+
+UICorner_4.Parent = Frame
+
+-- Scripts:
+
+local function XORDD_fake_script() -- Frame.Dragify 
+	local script = Instance.new('LocalScript', Frame)
+
+	local UserInputService = game:GetService("UserInputService")
+	local TweenService = game:GetService("TweenService")
+	
+	local Frame = script.Parent
+	local StartPosition = nil
+	local DragStart = nil
+	local DragSpeed = 0.25
+	local DragToggle = nil
+	
+	local function updateInput(Input)
+		local Delta = Input.Position - DragStart
+		local Position = UDim2.new(StartPosition.X.Scale, StartPosition.X.Offset + Delta.X, StartPosition.Y.Scale, StartPosition.Y.Offset + Delta.Y)
+		TweenService:Create(Frame, TweenInfo.new(DragSpeed), {Position = Position}):Play()
+	end
+	
+	Frame.InputBegan:Connect(function(Input)
+		if (Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch) then
+			DragToggle = true
+			DragStart = Input.Position
+			StartPosition = Frame.Position
+			Input.Changed:Connect(function()
+				if Input.UserInputState == Enum.UserInputState.End then
+					DragToggle = false
+				end
+			end)
+		end
+	end)
+	
+	UserInputService.InputChanged:Connect(function(Input)
+		if (Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch) then
+			if DragToggle then
+				updateInput(Input)
+			end
+		end
+	end)
+end
+coroutine.wrap(XORDD_fake_script)()
+end)
+
+Tab1Section:NewButton("Spam Get rhino", "why u click this?", function()
+    -- script here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Adam3mka/Adam/main/what"))()
+end)
+
+Tab1Section:NewButton("Unspam get rhino", "why did u click ?", function()
+-- script here
+    loopRunning = false
+end)
+
+Tab1Section:NewButton("Fling all (Not Mine)", "why u click this", function()
+    -- script here
+    loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
+end)
+
+Tab1Section:NewButton("Loopfling all", "why did u click ?", function()
+    -- script here
+    AUloop = true
+    
+    while AUloop do
+    loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
+    wait(1)
+end
+end)
+
+Tab1Section:NewButton("Unloopfling all", "why did u click ?", function()
+-- script here
+    AUloop = false
+end)
+
+local Tab1Section2 = Tab1:NewSection("DANGEROUS SECTION") -- Create a new section for the last button
+Tab1Section2:NewButton("All in one.", "why u click", function()
+    -- script here
+    local i = 1
+    while i <= 50 do
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FlavorYT/SPAM-EZ-GG/main/MADE%20BY%20FLAVORLEAKS%20DISCORD"))()
+        loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
+        i = i + 1
+    end
+end)
+
+local Tab2 = Window:NewTab("Extra")
+local Tab2Section = Tab2:NewSection("Extra script")
+Tab2Section:NewButton("INFINITE YIELD", "why u click this", function()
+    -- script here
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+Tab2Section:NewButton("NAMELESS ADMIN", "why u click this", function()
+-- script here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();
+end)
+
+local Tab3 = Window:NewTab("Credits")
+local Tab3Section = Tab3:NewSection("Made by adam.")
+local Tab3Section = Tab3:NewSection("Subcribe for more script like this.")
+local Tab3Section = Tab3:NewSection("DM yourself IF BUGS/GLITCHES.")
+local Tab3Section = Tab3:NewSection("CREDITS TO THE OWNER OF CHAT GUI AND FLING.") 
