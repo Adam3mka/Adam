@@ -1,0 +1,7 @@
+loopRunning = true
+    
+    while loopRunning do
+
+     game:GetService'Players':Chat((";gear" "me" "1178843200")
+     wait(0.28)
+end
