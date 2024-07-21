@@ -1,7 +1,7 @@
 loopRunning = true
     
     while loopRunning do
-      local plrname = me
+      local plrname = "me"
 game:GetService'Players':Chat(("gear "..plrname.." 0000000000000000001178843200"))
 wait(0.9)
 end
