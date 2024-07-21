@@ -1,0 +1,38 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("SERVER suier", "Synapse")
+
+-- Tabs
+
+local Tab1 = Window:NewTab("Main")
+local Tab1Section = Tab1:NewSection("Main Section") -- Define Tab1Section here
+
+Tab1Section:NewButton("auto enlighten grabber", "why u click this?", function()
+    -- script here
+    loadstring(game:HttpGet("https://pastebin.com/raw/Zs8BTjfH"))()
+end)
+
+Tab1Section:NewButton("lazyhub", "why did u click ?", function()
+-- script here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FlavorYT/The-lazy-ONE/main/Made%20by%20leakz%20and%20EvilAlienWare"))()
+end)
+
+Tab1Section:NewButton("rhino ", "why u click this", function()
+    -- script here
+    loadstring(game:HttpGet("https://pastebin.com/raw/67zRS6vS"))()
+end)
+
+Tab1Section:NewButton("INFINITE YIELD", "why u click this", function()
+    -- script here
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+Tab1Section:NewButton("NAMELESS ADMIN", "why u click this", function()
+-- script here
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();
+end)
+
+local Tab3 = Window:NewTab("Crits")
+local Tab3Section = Tab3:NewSection("Made by .")
+local Tab3Section = Tab3:NewSection("Sus.")
+local Tab3Section = Tab3:NewSection("DTCHES.")
+local Tab3Section = Tab3:NewSection("CRLING.") 
