@@ -47,7 +47,7 @@ hitboxes:AddToggle({
 hitboxes:AddSlider({
 	Name="Hitbox Size",
 	Min=2,Max=15,
-	Default=10,
+	Default=4,
 	Increment=1,
 	ValueName="studs",
 	Callback=function(value)
@@ -140,7 +140,7 @@ local fmovecon = false
 local infj = false
 physical:AddToggle({
 	Name="Infinite Jump",
-	Default=true,
+	Default=false,
 	Callback=function(value)
 		if value then
 			infj = true
