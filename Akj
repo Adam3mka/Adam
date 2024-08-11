@@ -35,7 +35,7 @@ local hbcon = false
 local hbsize = 10
 hitboxes:AddToggle({
 	Name="Hitbox Extend",
-	Default=true,
+	Default=false,
 	Callback=function(value)
 		if value then
 			hbcon = true
@@ -47,7 +47,7 @@ hitboxes:AddToggle({
 hitboxes:AddSlider({
 	Name="Hitbox Size",
 	Min=2,Max=15,
-	Default=4,
+	Default=6,
 	Increment=1,
 	ValueName="studs",
 	Callback=function(value)
