@@ -1,4 +1,4 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Adam3mka/Adam/main/FreesUckguiOrionOmgSoSigma')))()
 local Window = OrionLib:MakeWindow({Name = "VR7Hubs | TPS STREET SOCCER", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
 
 OrionLib:MakeNotification({
