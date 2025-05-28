@@ -1,9 +1,5 @@
 --// Cmdx User //--
-local user_premium__001 = game.Players:FindFirstChild("FlavorgamerYT")
-local user_premium__002 = game.Players:FindFirstChild("LittleJonib")
-local user_premium__003 = game.Players:FindFirstChild("xylar103")
-local user_premium__004 = game.Players:FindFirstChild("whoareyiu24")
-local player = game.Players.LocalPlayer
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay'))()
 
 --// Commands //--
 local freeze = function()
