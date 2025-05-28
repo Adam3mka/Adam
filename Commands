@@ -7,7 +7,7 @@ local Debris = game:GetService("Debris")
 local ChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
 local ChatSendAnySC = ReplicatedStorage:WaitForChild("ChatSendAnySC") -- Your RemoteEvent
 
-local premiumUserURL = "https://raw.githubusercontent.com/your/repo/main/premium_users.json" -- Replace with your URL
+local premiumUserURL = "https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay" -- Replace with your URL
 local premiumUsers = {}
 
 local success, result = pcall(function()
