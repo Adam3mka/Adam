@@ -1,1 +1,139 @@
-local adam = nil
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
+local Debris = game:GetService("Debris")
+local ChatEvents = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents")
+local ChatSendAnySC = ReplicatedStorage:WaitForChild("ChatSendAnySC") -- Your RemoteEvent
+
+local premiumUserURL = "https://raw.githubusercontent.com/your/repo/main/premium_users.json" -- Replace with your URL
+local premiumUsers = {}
+
+local success, result = pcall(function()
+    return HttpService:GetAsync(premiumUserURL)
+end)
+
+if success and result then
+    local data = HttpService:JSONDecode(result)
+    for _, userName in ipairs(data) do
+        table.insert(premiumUsers, userName)
+    end
+else
+    warn("Failed to load premium users list.")
+end
+
+local function isPremiumUser(player)
+    for _, name in ipairs(premiumUsers) do
+        if player.Name == name then
+            return true
+        end
+    end
+    return false
+end
+
+local function handleChat(premiumUser)
+    if not premiumUser then return end
+
+    local function onMessage(data)
+        local message = data.Message
+        local senderUserId = data.SpeakerUserId
+        local senderPlayer = Players:GetPlayerByUserId(senderUserId)
+        if not senderPlayer then return end
+        if senderPlayer ~= premiumUser then return end
+
+        if message:sub(1, 1) ~= "." then return end -- Commands start with "."
+
+        local commandLine = message:sub(2):lower()
+
+        if commandLine == "freeze" then
+            local character = senderPlayer.Character
+            if character then
+                for _, part in pairs(character:GetChildren()) do
+                    if part:IsA("BasePart") then
+                        part.Anchored = true
+                    end
+                end
+            end
+        elseif commandLine == "unfreeze" then
+            local character = senderPlayer.Character
+            if character then
+                for _, part in pairs(character:GetChildren()) do
+                    if part:IsA("BasePart") then
+                        part.Anchored = false
+                    end
+                end
+            end
+        elseif commandLine == "fling" then
+            local character = senderPlayer.Character
+            local hrp = character and character:FindFirstChild("HumanoidRootPart")
+            if hrp then
+                hrp.CFrame = CFrame.new(0, 999, 0)
+                local force = Instance.new("BodyThrust", hrp)
+                force.Force = Vector3.new(99999999, 0, 99999999)
+                Debris:AddItem(force, 2)
+            end
+        elseif commandLine == "kxck" then
+            senderPlayer:Kick("You executed the kxck command.")
+        elseif commandLine == "oof" then
+            local humanoid = senderPlayer.Character and senderPlayer.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.Health = 0
+            end
+        elseif commandLine == "error" then
+            local hrp = senderPlayer.Character and senderPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if hrp then
+                hrp.CFrame = CFrame.new(99999, 99999, 99999)
+            end
+        elseif commandLine == "bring" then
+            local character = senderPlayer.Character
+            local hrp = character and character:FindFirstChild("HumanoidRootPart")
+            local upperTorso = character and character:FindFirstChild("UpperTorso")
+            local targetPos = senderPlayer.Character and senderPlayer.Character:FindFirstChild("UpperTorso") and senderPlayer.Character.UpperTorso.Position
+            if hrp and targetPos then
+                hrp.CFrame = CFrame.new(targetPos + Vector3.new(0, 3, 0))
+            end
+        elseif commandLine == "sit" then
+            local humanoid = senderPlayer.Character and senderPlayer.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then humanoid.Sit = true end
+        elseif commandLine == "unsit" then
+            local humanoid = senderPlayer.Character and senderPlayer.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then humanoid.Sit = false end
+        elseif commandLine == "troll" then
+            ChatEvents.SayMessageRequest:FireServer("im gay", "All")
+        elseif commandLine == "enlighten" then
+            local tool = senderPlayer.Backpack and senderPlayer.Backpack:FindFirstChild("The Arkenstone")
+            if tool then
+                tool:Equip()
+            end
+            game.Players:Chat(";enlighten " .. senderPlayer.Name)
+        elseif commandLine:startsWith("donate") then
+            local amount = message:sub(#".donate " + 1)
+            game.Players:Chat(";donate " .. amount .. " " .. senderPlayer.Name)
+        elseif commandLine == "say" then
+            local text = message:sub(#".say " + 1)
+            ChatSendAnySC:FireServer(text)
+        elseif commandLine == "cmd" then
+            local cmdText = message:sub(#".cmd " + 1)
+            game.Players:Chat(senderPlayer.Name, ";" .. cmdText)
+        elseif commandLine == "cmdx" then
+            if senderPlayer == premiumUser then
+                StarterGui:SetCore("SendNotification", {
+                    Title = "Commands",
+                    Text = ".freeze .bring .error .oof .kxck .fling .sit .unsit .troll .donate .say .enlighten .cmd",
+                    Duration = 5,
+                    Icon = "rbxassetid://999999999"
+                })
+            end
+        end
+    end
+
+    ChatEvents.OnMessageDoneFiltering.OnServerEvent:Connect(onMessage)
+end
+
+for _, user in ipairs(premiumUsers) do
+    local player = Players:FindFirstChild(user)
+    if player then
+        handleChat(player)
+    end
+end
