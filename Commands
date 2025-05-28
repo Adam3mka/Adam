@@ -1,5 +1,5 @@
 
-local premiumUsers = loadstring(game:HttpGet('https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Adam3mka/The-chosen-one-lukaku/refs/heads/main/Okay'))()
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
