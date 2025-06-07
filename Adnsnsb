@@ -16,7 +16,7 @@ screenGui.Parent = player:WaitForChild("PlayerGui")
 -- Create the jump button
 local jumpButton = Instance.new("TextButton")
 jumpButton.Size = UDim2.new(0, 100, 0, 50)
-jumpButton.Position = UDim2.new(0.9, -50, 0.8, 10)  -- moved slightly to the right
+jumpButton.Position = UDim2.new(0.9, -50, 0.8, 35)  -- moved slightly to the right
 jumpButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 jumpButton.TextColor3 = Color3.new(1, 1, 1)
 jumpButton.Text = "Jump"
