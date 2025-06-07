@@ -13,24 +13,16 @@ screenGui.Name = "JumpGui"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
--- Create the circular jump button
+-- Create the jump button
 local jumpButton = Instance.new("TextButton")
-jumpButton.Size = UDim2.new(0, 80, 0, 80) -- size
-jumpButton.Position = UDim2.new(0.95, -85, 0.8, -85) -- near bottom right, slightly more to the right and higher
+jumpButton.Size = UDim2.new(0, 100, 0, 50)
+jumpButton.Position = UDim2.new(0.9, -110, 0.8, -25) -- bottom right corner
 jumpButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 jumpButton.TextColor3 = Color3.new(1, 1, 1)
 jumpButton.Text = "Jump"
 jumpButton.Parent = screenGui
 
--- Make the button perfectly circular
-jumpButton.Shape = Enum.Shape.Circle
-
--- Optional styling
-jumpButton.BorderSizePixel = 0
-jumpButton.Font = Enum.Font.SourceSansBold
-jumpButton.TextSize = 20
-
--- Make the character jump when pressed
+-- Connect button press to jump action
 jumpButton.MouseButton1Click:Connect(function()
     local character = getCharacter()
     local humanoid = character:FindFirstChildOfClass("Humanoid")
