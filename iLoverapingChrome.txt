@@ -578,3 +578,8 @@ pn.Visible=not pn.Visible
 if pn.Visible then rl()end
 end)
 rl()
+local UIS=game:GetService("UserInputService")
+UIS.InputBegan:Connect(function(i,g)
+if g then return end
+if i.KeyCode==Enum.KeyCode.Insert then sg.Enabled=not sg.Enabled end
+end)
