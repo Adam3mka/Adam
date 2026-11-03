@@ -1,0 +1,580 @@
+local P=game:GetService("Players")
+local CG=game:GetService("CoreGui")
+local RS=game:GetService("RunService")
+local H=game:GetService("HttpService")
+local US=game:GetService("UserService")
+local CP=game:GetService("ContentProvider")
+local LP=P.LocalPlayer
+local FN="saved_outfits.json"
+local OF="saved_avatar.txt"
+local sid=nil
+local snm=nil
+local fh=false
+local fk=false
+local cn=true
+local bz=false
+local ol={}
+local cw=type(writefile)=="function"
+local cB=Color3.fromRGB(0,120,255)
+local cG=Color3.fromRGB(40,180,40)
+local cR=Color3.fromRGB(200,50,50)
+local cO=Color3.fromRGB(150,50,50)
+local cP=Color3.fromRGB(120,80,200)
+local function sv()
+pcall(function()
+if cw then writefile(FN,H:JSONEncode(ol))end
+end)
+end
+local function ld()
+local ok,d=pcall(function()
+if type(readfile)=="function"and type(isfile)=="function"then
+if isfile(FN)then
+return H:JSONDecode(readfile(FN))
+elseif isfile(OF)then
+local o=readfile(OF)
+if o~=""then return{{label=o,username=o}}end
+end
+end
+end)
+ol={}
+if ok and type(d)=="table"then
+for _,e in ipairs(d)do
+if type(e)=="table"and type(e.username)=="string"and e.username~=""then
+local l=(type(e.label)=="string"and e.label~="")and e.label or e.username
+table.insert(ol,{label=l,username=e.username})
+end
+end
+end
+end
+ld()
+local sg=Instance.new("ScreenGui")
+sg.Name="FUCKING NIGGER"
+sg.ResetOnSpawn=false
+local op=pcall(function()sg.Parent=CG end)
+if not op then sg.Parent=LP:WaitForChild("PlayerGui")end
+local function rd(i,r)
+local c=Instance.new("UICorner")
+c.CornerRadius=UDim.new(0,r)
+c.Parent=i
+end
+local fr=Instance.new("Frame")
+fr.Size=UDim2.new(0,260,0,270)
+fr.Position=UDim2.new(0.5,-130,0.4,-135)
+fr.BackgroundColor3=Color3.fromRGB(30,30,30)
+fr.BorderSizePixel=0
+fr.Active=true
+fr.Draggable=true
+fr.Parent=sg
+rd(fr,8)
+local tt=Instance.new("TextLabel")
+tt.Size=UDim2.new(1,0,0,30)
+tt.Text="I CUM ON CHROME"
+tt.TextColor3=Color3.fromRGB(255,255,255)
+tt.BackgroundTransparency=1
+tt.Font=Enum.Font.SourceSansBold
+tt.TextSize=15
+tt.Parent=fr
+local tb=Instance.new("TextBox")
+tb.Size=UDim2.new(0.85,0,0,30)
+tb.Position=UDim2.new(0.075,0,0,36)
+tb.PlaceholderText="Type ANY Username..."
+tb.Text=""
+tb.BackgroundColor3=Color3.fromRGB(45,45,45)
+tb.TextColor3=Color3.fromRGB(255,255,255)
+tb.PlaceholderColor3=Color3.fromRGB(150,150,150)
+tb.Font=Enum.Font.SourceSans
+tb.TextSize=14
+tb.ClearTextOnFocus=false
+tb.Parent=fr
+rd(tb,5)
+local function mb(pa,tx,x,y,w,h,c,s)
+local bt=Instance.new("TextButton")
+bt.Size=UDim2.new(w,0,0,h)
+bt.Position=UDim2.new(x,0,0,y)
+bt.Text=tx
+bt.BackgroundColor3=c
+bt.TextColor3=Color3.fromRGB(255,255,255)
+bt.Font=Enum.Font.SourceSansBold
+bt.TextSize=s
+bt.Parent=pa
+rd(bt,5)
+return bt
+end
+local b1=mb(fr,"Morph Into Player",0.075,74,0.85,30,cB,15)
+local b2=mb(fr,"Headless: OFF",0.075,110,0.85,30,cO,14)
+local b3=mb(fr,"Korblox Leg: OFF",0.075,146,0.85,30,cO,14)
+local b4=mb(fr,"Change Name: ON",0.075,182,0.85,30,cG,14)
+local b5=mb(fr,"Save User",0.075,222,0.4,30,cG,14)
+local b6=mb(fr,"Saved Outfits",0.525,222,0.4,30,cP,14)
+local pn=Instance.new("Frame")
+pn.Size=UDim2.new(0,260,1,0)
+pn.Position=UDim2.new(1,8,0,0)
+pn.BackgroundColor3=Color3.fromRGB(30,30,30)
+pn.BorderSizePixel=0
+pn.Visible=false
+pn.Parent=fr
+rd(pn,8)
+local pt=Instance.new("TextLabel")
+pt.Size=UDim2.new(1,0,0,28)
+pt.Text="Saved Outfits"
+pt.TextColor3=Color3.fromRGB(255,255,255)
+pt.BackgroundTransparency=1
+pt.Font=Enum.Font.SourceSansBold
+pt.TextSize=15
+pt.Parent=pn
+local ph=Instance.new("TextLabel")
+ph.Size=UDim2.new(1,-16,0,16)
+ph.Position=UDim2.new(0,8,0,28)
+ph.Text=cw and"Tap a name to rename it"or"Tap a name to rename (this session only: no file access)"
+ph.TextColor3=Color3.fromRGB(150,150,150)
+ph.BackgroundTransparency=1
+ph.Font=Enum.Font.SourceSans
+ph.TextSize=12
+ph.TextTruncate=Enum.TextTruncate.AtEnd
+ph.Parent=pn
+local lf=Instance.new("ScrollingFrame")
+lf.Size=UDim2.new(1,-16,1,-56)
+lf.Position=UDim2.new(0,8,0,48)
+lf.BackgroundTransparency=1
+lf.BorderSizePixel=0
+lf.ScrollBarThickness=4
+lf.CanvasSize=UDim2.new(0,0,0,0)
+lf.AutomaticCanvasSize=Enum.AutomaticSize.Y
+lf.Parent=pn
+local ll=Instance.new("UIListLayout")
+ll.Padding=UDim.new(0,4)
+ll.SortOrder=Enum.SortOrder.LayoutOrder
+ll.Parent=lf
+local el=Instance.new("TextLabel")
+el.Size=UDim2.new(1,0,0,40)
+el.Position=UDim2.new(0,0,0.35,0)
+el.Text="No saved outfits yet.\nType a username and press Save User."
+el.TextColor3=Color3.fromRGB(150,150,150)
+el.BackgroundTransparency=1
+el.Font=Enum.Font.SourceSans
+el.TextSize=13
+el.Parent=pn
+local function co(ch)
+for _,o in ipairs(ch:GetChildren())do
+if o:IsA("Clothing")or o:IsA("ShirtGraphic")or o:IsA("Accessory")
+or o:IsA("BodyColors")or o:IsA("CharacterMesh")then
+o:Destroy()
+end
+end
+end
+local KM=101851696
+local KT=101851254
+local kl=nil
+local function rk(ch)
+for _,o in ipairs(ch:GetChildren())do
+if o:IsA("CharacterMesh")and o.BodyPart==Enum.BodyPart.RightLeg then
+o:Destroy()
+end
+end
+local rl=ch:FindFirstChild("Right Leg")
+local om=rl and rl:FindFirstChildOfClass("SpecialMesh")
+if om then om:Destroy()end
+end
+local function ak(ch)
+if kl==nil then
+kl=true
+pcall(function()
+CP:PreloadAsync({"rbxassetid://"..KM},function(_,s)
+if s~=Enum.AssetFetchStatus.Success then kl=false end
+end)
+end)
+end
+if not kl then
+warn("Korblox mesh failed to load; keeping your normal right leg.")
+return false
+end
+rk(ch)
+local m=Instance.new("CharacterMesh")
+m.BodyPart=Enum.BodyPart.RightLeg
+m.MeshId=KM
+m.BaseTextureId=KT
+m.OverlayTextureId=0
+m.Parent=ch
+return true
+end
+local function sh(ch,on)
+local he=ch and ch:FindFirstChild("Head")
+if not he then return end
+local t=on and 1 or 0
+he.Transparency=t
+for _,d in ipairs(he:GetChildren())do
+if d:IsA("Decal")then d.Transparency=t end
+end
+for _,o in ipairs(ch:GetChildren())do
+if o:IsA("Accessory")then
+local n=o.Name:lower()
+local hd=o:FindFirstChild("Handle")
+if hd and(n:find("face")or n:find("mask"))then
+hd.Transparency=t
+end
+end
+end
+end
+local function fd(uid,fb)
+local ok,inf=pcall(function()
+return US:GetUserInfosByUserIdsAsync({uid})
+end)
+if ok and inf and inf[1]and inf[1].DisplayName and inf[1].DisplayName~=""then
+return inf[1].DisplayName
+end
+return fb
+end
+local function an(ch)
+if not cn or not snm then return end
+local hm=ch and ch:FindFirstChildOfClass("Humanoid")
+if hm then hm.DisplayName=snm end
+end
+local AF={
+HatAttachment={"Head",CFrame.new(0,0.6,0)},
+HairAttachment={"Head",CFrame.new(0,0.6,0)},
+FaceFrontAttachment={"Head",CFrame.new(0,0,-0.6)},
+FaceCenterAttachment={"Head",CFrame.new(0,0,0)},
+NeckAttachment={"Torso",CFrame.new(0,1,0)},
+BodyFrontAttachment={"Torso",CFrame.new(0,0,-0.5)},
+BodyBackAttachment={"Torso",CFrame.new(0,0,0.5)},
+LeftCollarAttachment={"Torso",CFrame.new(-1,1,0)},
+RightCollarAttachment={"Torso",CFrame.new(1,1,0)},
+WaistFrontAttachment={"Torso",CFrame.new(0,-1,-0.5)},
+WaistBackAttachment={"Torso",CFrame.new(0,-1,0.5)},
+WaistCenterAttachment={"Torso",CFrame.new(0,-1,0)},
+LeftShoulderAttachment={"Left Arm",CFrame.new(0,1,0)},
+RightShoulderAttachment={"Right Arm",CFrame.new(0,1,0)},
+LeftGripAttachment={"Left Arm",CFrame.new(0,-1,0)},
+RightGripAttachment={"Right Arm",CFrame.new(0,-1,0)},
+LeftFootAttachment={"Left Leg",CFrame.new(0,-1,0)},
+RightFootAttachment={"Right Leg",CFrame.new(0,-1,0)},
+}
+local function wa(ch,ac)
+local hd=ac:FindFirstChild("Handle")
+if not hd or not hd:IsA("BasePart")then return end
+if hd:FindFirstChild("AccessoryWeld")then return end
+for _,x in ipairs(ac:GetDescendants())do
+if x:IsA("BasePart")then
+x.Anchored=false
+x.CanCollide=false
+x.Massless=true
+end
+end
+local aa,tp,tc
+for _,a in ipairs(hd:GetChildren())do
+if a:IsA("Attachment")then
+for _,p in ipairs(ch:GetChildren())do
+if p:IsA("BasePart")then
+local ca=p:FindFirstChild(a.Name)
+if ca and ca:IsA("Attachment")then
+aa,tp,tc=a,p,ca.CFrame
+break
+end
+end
+end
+if not aa then
+local fb=AF[a.Name]
+local p=fb and ch:FindFirstChild(fb[1])
+if p then
+aa,tp,tc=a,p,fb[2]
+end
+end
+if aa then break end
+end
+end
+local w=Instance.new("Weld")
+w.Name="AccessoryWeld"
+if aa then
+w.Part0=hd
+w.Part1=tp
+w.C0=aa.CFrame
+w.C1=tc
+else
+local he=ch:FindFirstChild("Head")
+if not he then return end
+w.Part0=he
+w.Part1=hd
+w.C0=CFrame.new(0,0.5,0)
+w.C1=ac.AttachmentPoint
+end
+w.Parent=hd
+end
+local function ab(ch,ap)
+local bc=ap:FindFirstChildOfClass("BodyColors")
+if bc then
+local cs={
+["Head"]=bc.HeadColor3,
+["Torso"]=bc.TorsoColor3,
+["Left Arm"]=bc.LeftArmColor3,
+["Right Arm"]=bc.RightArmColor3,
+["Left Leg"]=bc.LeftLegColor3,
+["Right Leg"]=bc.RightLegColor3,
+}
+for n,c in pairs(cs)do
+local pt2=ch:FindFirstChild(n)
+if pt2 and pt2:IsA("BasePart")then
+pt2.Color=c
+end
+end
+end
+local th=ap:FindFirstChild("Head")
+local mh=ch:FindFirstChild("Head")
+if th and mh then
+local nm=th:FindFirstChildOfClass("SpecialMesh")
+if nm then
+local om=mh:FindFirstChildOfClass("SpecialMesh")
+if om then om:Destroy()end
+nm:Clone().Parent=mh
+end
+local nf=th:FindFirstChildOfClass("Decal")
+if nf then
+for _,d in ipairs(mh:GetChildren())do
+if d:IsA("Decal")then d:Destroy()end
+end
+nf:Clone().Parent=mh
+end
+end
+end
+local function ao(uid,ch)
+local ok,ap=pcall(function()
+return P:GetCharacterAppearanceAsync(uid)
+end)
+if not ok or not ap then return false end
+co(ch)
+for _,o in ipairs(ap:GetChildren())do
+if o:IsA("Clothing")or o:IsA("ShirtGraphic")or o:IsA("BodyColors")or o:IsA("CharacterMesh")then
+o:Clone().Parent=ch
+elseif o:IsA("Accessory")then
+local cl=o:Clone()
+cl.Parent=ch
+local okw,er=pcall(wa,ch,cl)
+if not okw then warn("Weld failed for "..cl.Name..": "..tostring(er))end
+end
+end
+pcall(ab,ch,ap)
+ap:Destroy()
+if fk then ak(ch)end
+if fh then sh(ch,true)end
+return true
+end
+RS.RenderStepped:Connect(function()
+if not fh then return end
+local ch=LP.Character
+local he=ch and ch:FindFirstChild("Head")
+if he and he.Transparency~=1 then
+sh(ch,true)
+end
+end)
+LP.CharacterAdded:Connect(function(nc)
+nc:WaitForChild("Humanoid")
+nc:WaitForChild("Torso",5)
+local dn=false
+local cx=LP.CharacterAppearanceLoaded:Connect(function()dn=true end)
+local wt=0
+while not dn and wt<2 do
+wt+=task.wait(0.1)
+end
+cx:Disconnect()
+if sid then
+pcall(ao,sid,nc)
+else
+if fk then ak(nc)end
+if fh then sh(nc,true)end
+end
+an(nc)
+end)
+local function tm(n)
+n=(n or""):gsub("%s","")
+if n==""or bz then return end
+bz=true
+b1.Text="Loading Outfit..."
+local ok,tid=pcall(function()
+return P:GetUserIdFromNameAsync(n)
+end)
+local mc=LP.Character
+if ok and tid and mc then
+local ok2,sw=pcall(ao,tid,mc)
+if ok2 and sw then
+sid=tid
+snm=fd(tid,n)
+an(mc)
+b1.Text="Morphed Successfully!"
+b1.BackgroundColor3=cG
+else
+b1.Text="Load Error!"
+b1.BackgroundColor3=cR
+end
+else
+b1.Text="User Not Found!"
+b1.BackgroundColor3=cR
+end
+task.wait(1.5)
+b1.BackgroundColor3=cB
+b1.Text="Morph Into Player"
+bz=false
+end
+local function rl()
+for _,c in ipairs(lf:GetChildren())do
+if c:IsA("Frame")then c:Destroy()end
+end
+el.Visible=(#ol==0)
+for i,en in ipairs(ol)do
+local r=Instance.new("Frame")
+r.Name="Row"
+r.Size=UDim2.new(1,-6,0,44)
+r.BackgroundColor3=Color3.fromRGB(45,45,45)
+r.BorderSizePixel=0
+r.LayoutOrder=i
+r.Parent=lf
+rd(r,5)
+local lb=Instance.new("TextBox")
+lb.Size=UDim2.new(0,112,0,24)
+lb.Position=UDim2.new(0,6,0,2)
+lb.BackgroundTransparency=1
+lb.Text=en.label
+lb.ClearTextOnFocus=false
+lb.TextXAlignment=Enum.TextXAlignment.Left
+lb.TextTruncate=Enum.TextTruncate.AtEnd
+lb.TextColor3=Color3.fromRGB(255,255,255)
+lb.Font=Enum.Font.SourceSansBold
+lb.TextSize=14
+lb.Parent=r
+lb.FocusLost:Connect(function()
+local nl=lb.Text:match("^%s*(.-)%s*$")
+if nl==""then nl=en.label end
+en.label=nl
+lb.Text=nl
+sv()
+end)
+local ul=Instance.new("TextLabel")
+ul.Size=UDim2.new(0,112,0,16)
+ul.Position=UDim2.new(0,6,0,26)
+ul.BackgroundTransparency=1
+ul.Text="@"..en.username
+ul.TextXAlignment=Enum.TextXAlignment.Left
+ul.TextTruncate=Enum.TextTruncate.AtEnd
+ul.TextColor3=Color3.fromRGB(150,150,150)
+ul.Font=Enum.Font.SourceSans
+ul.TextSize=12
+ul.Parent=r
+local lo=Instance.new("TextButton")
+lo.Size=UDim2.new(0,58,0,36)
+lo.Position=UDim2.new(0,122,0,4)
+lo.Text="Load"
+lo.BackgroundColor3=cG
+lo.TextColor3=Color3.fromRGB(255,255,255)
+lo.Font=Enum.Font.SourceSansBold
+lo.TextSize=14
+lo.Parent=r
+rd(lo,5)
+lo.MouseButton1Click:Connect(function()
+tb.Text=en.username
+tm(en.username)
+end)
+local dl=Instance.new("TextButton")
+dl.Size=UDim2.new(0,50,0,36)
+dl.Position=UDim2.new(0,184,0,4)
+dl.Text="Delete"
+dl.BackgroundColor3=cR
+dl.TextColor3=Color3.fromRGB(255,255,255)
+dl.Font=Enum.Font.SourceSansBold
+dl.TextSize=13
+dl.Parent=r
+rd(dl,5)
+local ar=false
+dl.MouseButton1Click:Connect(function()
+if ar then
+for k,v in ipairs(ol)do
+if v==en then
+table.remove(ol,k)
+break
+end
+end
+sv()
+rl()
+else
+ar=true
+dl.Text="Sure?"
+task.delay(2,function()
+if dl.Parent then
+ar=false
+dl.Text="Delete"
+end
+end)
+end
+end)
+end
+end
+b1.MouseButton1Click:Connect(function()tm(tb.Text)end)
+b2.MouseButton1Click:Connect(function()
+fh=not fh
+sh(LP.Character,fh)
+if fh then
+b2.Text="Headless: ON"
+b2.BackgroundColor3=cG
+else
+b2.Text="Headless: OFF"
+b2.BackgroundColor3=cO
+end
+end)
+b3.MouseButton1Click:Connect(function()
+fk=not fk
+local mc=LP.Character
+if fk then
+b3.Text="Korblox Leg: ON"
+b3.BackgroundColor3=cG
+if mc and ak(mc)==false then
+fk=false
+b3.Text="Korblox: failed to load"
+b3.BackgroundColor3=cR
+task.delay(2,function()
+b3.Text="Korblox Leg: OFF"
+b3.BackgroundColor3=cO
+end)
+end
+else
+b3.Text="Korblox Leg: OFF"
+b3.BackgroundColor3=cO
+if mc then rk(mc)end
+end
+end)
+b4.MouseButton1Click:Connect(function()
+cn=not cn
+local ch=LP.Character
+if cn then
+b4.Text="Change Name: ON"
+b4.BackgroundColor3=cG
+an(ch)
+else
+b4.Text="Change Name: OFF"
+b4.BackgroundColor3=cO
+local hm=ch and ch:FindFirstChildOfClass("Humanoid")
+if hm then hm.DisplayName=LP.DisplayName end
+end
+end)
+b5.MouseButton1Click:Connect(function()
+local n=(tb.Text:gsub("%s",""))
+if n==""then return end
+local ex=false
+for _,e in ipairs(ol)do
+if e.username:lower()==n:lower()then
+ex=true
+break
+end
+end
+if ex then
+b5.Text="Already saved"
+else
+table.insert(ol,{label=n,username=n})
+sv()
+rl()
+b5.Text="Saved!"
+end
+task.wait(1)
+b5.Text="Save User"
+end)
+b6.MouseButton1Click:Connect(function()
+pn.Visible=not pn.Visible
+if pn.Visible then rl()end
+end)
+rl()
